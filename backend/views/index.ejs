@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<html>
+    
+    <%- include("common/header.ejs") %>
+    <body class='flex flex-col h-full'>
+        <div id="content" class="flex justify-center">
+            <div class="w-full max-w-lg">
+                
+                <p class="highcharts-description">
+                    Read Voltage by Agres
+                </p>
+				<hr />
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart1"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart2"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart3"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart4"></div>
+                	</div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </body>
+    <script type="text/javascript">
+		
+		let chartType = {
+						type: 'gauge',
+						plotBackgroundColor: null,
+						plotBackgroundImage: null,
+						plotBorderWidth: 0,
+						plotShadow: false,
+						height: '80%'
+					};
+		let paneOptions = {
+					startAngle: -90,
+					endAngle: 89.9,
+					background: null,
+					center: ['50%', '75%'],
+					size: '110%'
+				};
+
+		let yAxisOptions = {
+                min: 0,
+                max: 5,
+                tickPixelInterval: 72,
+                tickPosition: 'inside',
+                tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+                tickLength: 20,
+                tickWidth: 2,
+                minorTickInterval: null,
+                labels: {
+                    distance: 20,
+                    style: {
+                        fontSize: '14px'
+                    }
+                },
+                plotBands: [{
+                    from: 0,
+                    to: 2,
+                    color: '#55BF3B', // green
+                    thickness: 20
+                }, {
+                    from: 2,
+                    to: 4,
+                    color: '#DDDF0D', // yellow
+                    thickness: 20
+                }, {
+                    from: 4,
+                    to: 5,
+                    color: '#DF5353', // red
+                    thickness: 20
+                }]
+            };
+		let seriesOptions = {
+                name: 'Voltage',
+                data: [0],
+                tooltip: {
+                    valueSuffix: ' volt'
+                },
+                dataLabels: {
+                    format: '{y:.2f} volt',
+                    borderWidth: 0,
+                    color: (
+                        Highcharts.defaultOptions.title &&
+                        Highcharts.defaultOptions.title.style &&
+                        Highcharts.defaultOptions.title.style.color
+                    ) || '#333333',
+                    style: {
+                        fontSize: '16px'
+                    }
+                },
+                dial: {
+                    radius: '80%',
+                    backgroundColor: 'gray',
+                    baseWidth: 12,
+                    baseLength: '0%',
+                    rearLength: '0%'
+                },
+                pivot: {
+                    backgroundColor: 'gray',
+                    radius: 6
+                }
+        
+            };
+        const chart = Highcharts.chart('chart1', {
+				chart: chartType,
+				title: {
+					text: 'Analog 0'
+				},
+				pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+        	});
+        const chart2 = Highcharts.chart('chart2', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 1'
+    			},
+				pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+
+		const chart3 = 	Highcharts.chart('chart3', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 2'
+    			},
+				pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart4 = 	Highcharts.chart('chart4', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 3'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+        
+        function setPoint(chart,value){
+			if (chart && !chart.renderer.forExport) {
+				let point = chart.series[0].points[0];
+				point.update(value);
+			}
+		}
+        
+		//Analog 0
+        socket.on('A0', function (data) {
+			setPoint(chart,data.data.value);
+        });
+        
+		//Analog 1
+        socket.on('A1', function (data) {
+			setPoint(chart2,data.data.value);
+        });
+
+		//Analog 2
+        socket.on('A2', function (data) {
+			setPoint(chart3,data.data.value);
+        });
+
+		//Analog 3
+        socket.on('A3', function (data) {
+			setPoint(chart4,data.data.value);
+        });
+        
+    </script>
+    <%- include("common/footer.ejs") %>
+</html>
+
+
+

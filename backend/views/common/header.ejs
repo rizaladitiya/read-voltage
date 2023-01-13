@@ -1,0 +1,115 @@
+<head>
+    <style type="text/css">
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 310px;
+            max-width: 500px;
+            margin: 1em auto;
+        }
+        
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #ebebeb;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+        
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+        
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+        
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+        
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+        .highcharts-credits {
+            display: none !important;
+        }
+        .chart-wrapper {
+ 		position: relative;
+    		padding-bottom: 50%;
+    		width:50%;
+    		float:left;
+		}
+		
+		.chart-inner {
+		position: absolute;
+    		width: 100%; height: 100%;
+		}
+    </style>
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="public/css/tailwind.min.css"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+        socket = io.connect('http://localhost:3700');
+    </script>
+    <script type="text/javascript" src="public/js/highcharts.js"></script>
+    <script type="text/javascript" src="public/js/highcharts-more.js"></script>
+    <script type="text/javascript" src="public/js/exporting.js"></script>
+    <script type="text/javascript" src="public/js/export-data.js"></script>
+    <script type="text/javascript" src="public/js/accessibility.js"></script>
+    
+</head>
+<nav class="flex items-center justify-between flex-wrap bg-gray-100 p-0.5">
+    <div class="flex items-center flex-shrink-0 text-gray-700 mr-6">
+      
+        
+      <span class="font-semibold text-xl tracking-tight pl-2">Read<br />Voltage</span>
+    </div>
+    <div class="block lg:hidden">
+      <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-300 border-gray-400 hover:text-gray-300 hover:border-gray-400">
+        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+      </button>
+    </div>
+    <div class="w-full block flex-grow lg:flex hidden lg:items-center lg:w-auto" id="nav-content">
+      <div class="text-sm lg:flex-grow">
+        <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700  hover:text-gray-500 text-lg mr-4" id="nav_home">
+          Home
+        </a>
+        <a href="setting" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-gray-500 text-lg mr-4" id="nav_setting">
+          Setting
+        </a>
+      </div>
+    </div>
+  </nav>
+  <script>
+    //Javascript to toggle the menu
+    let uri = window.location.pathname;
+    let navSetting = document.getElementById('nav_setting');
+    let navHome = document.getElementById('nav_home');
+    if(uri === "/setting"){
+        navSetting.classList.add("bg-gray-200");
+        navSetting.classList.add("border");
+        navSetting.classList.add("rounded");
+    }
+    if(uri === "/home" || uri === "/"){
+        navHome.classList.add("bg-gray-200");
+        navHome.classList.add("border");
+        navHome.classList.add("rounded");
+    }
+  </script>
