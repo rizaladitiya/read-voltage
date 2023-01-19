@@ -7,12 +7,17 @@
     <%- include("common/header.ejs") %>
     <body class='flex flex-col h-full'>
         <div id="content" class="flex justify-center">
-            <div class="w-full max-w-lg">
+            <div class="w-10/12">
                 
                 <p class="highcharts-description">
                     Read Voltage by Agres
                 </p>
 				<hr />
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart0"></div>
+                	</div>
+                </div>
                 <div class="chart-wrapper">
                 	<div class="chart-inner">
                 		<div id="chart1"></div>
@@ -33,6 +38,61 @@
                 		<div id="chart4"></div>
                 	</div>
                 </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart5"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart6"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart7"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart8"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart9"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart10"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart11"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart12"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart13"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart14"></div>
+                	</div>
+                </div>
+                <div class="chart-wrapper">
+                	<div class="chart-inner">
+                		<div id="chart15"></div>
+                	</div>
+                </div>
                 
             </div>
         </div>
@@ -41,51 +101,46 @@
     <script type="text/javascript">
 		
 		let chartType = {
-						type: 'gauge',
-						plotBackgroundColor: null,
-						plotBackgroundImage: null,
-						plotBorderWidth: 0,
-						plotShadow: false,
-						height: '80%'
-					};
+                    type: 'gauge',
+                    plotBorderWidth: 1,
+                    plotBackgroundColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                        stops: [
+                            [0, '#FFF4C6'],
+                            [0.3, '#FFFFFF'],
+                            [1, '#FFF4C6']
+                        ]
+                    },
+                    plotBackgroundImage: null,
+                    //height: 230,
+					height: (9 / 9 * 100) + '%' // 16:9 ratio
+				};
 		let paneOptions = {
-					startAngle: -90,
-					endAngle: 89.9,
+					startAngle: -45,
+					endAngle: 45,
 					background: null,
-					center: ['50%', '75%'],
-					size: '110%'
+					center: ['50%', '80%'],
+					size: '125%'
 				};
 
 		let yAxisOptions = {
                 min: 0,
                 max: 5,
-                tickPixelInterval: 72,
-                tickPosition: 'inside',
-                tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
-                tickLength: 20,
-                tickWidth: 2,
-                minorTickInterval: null,
+                minorTickPosition: 'outside',
+                tickPosition: 'outside',
                 labels: {
+                    rotation: 'auto',
                     distance: 20,
                     style: {
                         fontSize: '14px'
                     }
                 },
                 plotBands: [{
-                    from: 0,
-                    to: 2,
-                    color: '#55BF3B', // green
-                    thickness: 20
-                }, {
-                    from: 2,
-                    to: 4,
-                    color: '#DDDF0D', // yellow
-                    thickness: 20
-                }, {
                     from: 4,
                     to: 5,
-                    color: '#DF5353', // red
-                    thickness: 20
+                    color: '#C02316',
+                    innerRadius: '100%',
+                    outerRadius: '105%'
                 }]
             };
 		let seriesOptions = {
@@ -107,22 +162,15 @@
                     }
                 },
                 dial: {
-                    radius: '80%',
-                    backgroundColor: 'gray',
-                    baseWidth: 12,
-                    baseLength: '0%',
-                    rearLength: '0%'
-                },
-                pivot: {
-                    backgroundColor: 'gray',
-                    radius: 6
+                    radius: '100%'
                 }
         
             };
-        const chart = Highcharts.chart('chart1', {
+        const chart0 = Highcharts.chart('chart0', {
 				chart: chartType,
 				title: {
-					text: 'Analog 0'
+					text: 'Analog 0',
+            		y: "1000%"
 				},
 				pane: paneOptions,
 				yAxis: yAxisOptions,
@@ -131,7 +179,7 @@
 					enabled: false
 				}
         	});
-        const chart2 = Highcharts.chart('chart2', {
+        const chart1 = Highcharts.chart('chart1', {
     			chart: chartType,
     			title: {
         			text: 'Analog 1'
@@ -144,7 +192,7 @@
 				}
 			});
 
-		const chart3 = 	Highcharts.chart('chart3', {
+		const chart2 = 	Highcharts.chart('chart2', {
     			chart: chartType,
     			title: {
         			text: 'Analog 2'
@@ -156,10 +204,154 @@
 					enabled: false
 				}
 			});
-			const chart4 = 	Highcharts.chart('chart4', {
+			const chart3 = 	Highcharts.chart('chart3', {
     			chart: chartType,
     			title: {
         			text: 'Analog 3'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart4 = 	Highcharts.chart('chart4', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 4'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart5 = 	Highcharts.chart('chart5', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 5'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart6 = 	Highcharts.chart('chart6', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 6'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart7 = 	Highcharts.chart('chart7', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 7'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart8 = 	Highcharts.chart('chart8', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 8'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart9 = 	Highcharts.chart('chart9', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 9'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart10 = Highcharts.chart('chart10', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 10'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart11 = Highcharts.chart('chart11', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 11'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart12 = Highcharts.chart('chart12', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 12'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart13 = Highcharts.chart('chart13', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 13'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart14 = Highcharts.chart('chart14', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 14'
+    			},
+    			pane: paneOptions,
+				yAxis: yAxisOptions,
+				series: [seriesOptions],
+				exporting: {
+					enabled: false
+				}
+			});
+			const chart15 = Highcharts.chart('chart15', {
+    			chart: chartType,
+    			title: {
+        			text: 'Analog 15'
     			},
     			pane: paneOptions,
 				yAxis: yAxisOptions,
@@ -178,22 +370,83 @@
         
 		//Analog 0
         socket.on('A0', function (data) {
-			setPoint(chart,data.data.value);
+			setPoint(chart0,data.data.value);
+            //console.log(data.data.value);
         });
         
 		//Analog 1
         socket.on('A1', function (data) {
-			setPoint(chart2,data.data.value);
+			setPoint(chart1,data.data.value);
         });
 
 		//Analog 2
         socket.on('A2', function (data) {
-			setPoint(chart3,data.data.value);
+			setPoint(chart2,data.data.value);
         });
 
 		//Analog 3
         socket.on('A3', function (data) {
+			setPoint(chart3,data.data.value);
+        });
+
+		//Analog 4
+        socket.on('A4', function (data) {
 			setPoint(chart4,data.data.value);
+        });
+
+		//Analog 5
+        socket.on('A5', function (data) {
+			setPoint(chart5,data.data.value);
+        });
+
+		//Analog 6
+        socket.on('A6', function (data) {
+			setPoint(chart6,data.data.value);
+        });
+
+		//Analog 7
+        socket.on('A7', function (data) {
+			setPoint(chart7,data.data.value);
+        });
+
+		//Analog 8
+        socket.on('A8', function (data) {
+			setPoint(chart8,data.data.value);
+        });
+
+		//Analog 9
+        socket.on('A9', function (data) {
+			setPoint(chart9,data.data.value);
+        });
+
+		//Analog 10
+        socket.on('A10', function (data) {
+			setPoint(chart10,data.data.value);
+        });
+
+		//Analog 11
+        socket.on('A11', function (data) {
+			setPoint(chart11,data.data.value);
+        });
+
+		//Analog 12
+        socket.on('A12', function (data) {
+			setPoint(chart12,data.data.value);
+        });
+
+		//Analog 13
+        socket.on('A13', function (data) {
+			setPoint(chart13,data.data.value);
+        });
+
+		//Analog 14
+        socket.on('A14', function (data) {
+			setPoint(chart14,data.data.value);
+        });
+
+		//Analog 15
+        socket.on('A15', function (data) {
+			setPoint(chart15,data.data.value);
         });
         
     </script>
