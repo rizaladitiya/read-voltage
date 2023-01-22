@@ -2,6 +2,7 @@ const express = require("express");
 const routes = require('./routes/index.js');
 const socketIO = require("socket.io");
 const path = require("path");
+const { send } = require("process");
 const port = process.env.PORT || 3700;
 const range = {
     oldMin: 0,
@@ -161,14 +162,25 @@ async function main() {
 
             //metode delay, karena pakai metode on change terlalu cepat
             setInterval(()=> {
+                let sendData = {
+                    A0 : scaling(range,A0.value),
+                    A1 : scaling(range,A1.value),
+                    A2 : scaling(range,A2.value),
+                    A3 : scaling(range,A3.value),
+                    A4 : scaling(range,A4.value)
+                }
+                sendSocket(io,"Analog",parseEmit(sendData));
+                /*
+                kirim satu2 hasil lambat di frontend
                 sendSocket(io,"A0",parseEmit("A0",scaling(range,A0.value)));
                 sendSocket(io,"A1",parseEmit("A1",scaling(range,A1.value)));
                 sendSocket(io,"A2",parseEmit("A2",scaling(range,A2.value)));
                 sendSocket(io,"A3",parseEmit("A3",scaling(range,A3.value)));
                 sendSocket(io,"A4",parseEmit("A4",scaling(range,A4.value)));
                 //console.log(A0.value);
+                */
              }
-             ,500);
+             ,1000);
             
 
         });

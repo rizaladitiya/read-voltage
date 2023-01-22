@@ -7,7 +7,7 @@
     <%- include("common/header.ejs") %>
     <body class='flex flex-col h-full'>
         <div id="content" class="flex justify-center">
-            <div class="w-10/12">
+            <div class="w-8/12">
                 
                 <p class="highcharts-description">
                     Read Voltage by Agres
@@ -169,8 +169,7 @@
         const chart0 = Highcharts.chart('chart0', {
 				chart: chartType,
 				title: {
-					text: 'Analog 0',
-            		y: "1000%"
+					text: 'Analog 0'
 				},
 				pane: paneOptions,
 				yAxis: yAxisOptions,
@@ -368,6 +367,21 @@
 			}
 		}
         
+
+		//get all data, one time transfer 
+		socket.on('Analog', function (data) {
+			setPoint(chart0,data.data.message.A0);
+			setPoint(chart1,data.data.message.A1);
+			setPoint(chart2,data.data.message.A2);
+			setPoint(chart3,data.data.message.A3);
+			setPoint(chart4,data.data.message.A4);
+            //console.log(data.data.message.A0);
+        });
+        
+
+		/*
+
+		Ambil data satu2 jadi lambat di frontend
 		//Analog 0
         socket.on('A0', function (data) {
 			setPoint(chart0,data.data.value);
@@ -448,6 +462,7 @@
         socket.on('A15', function (data) {
 			setPoint(chart15,data.data.value);
         });
+		*/
         
     </script>
     <%- include("common/footer.ejs") %>
